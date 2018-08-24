@@ -1,0 +1,81 @@
+<configuration>
+    <springProperty scope="context" name="log.srv.tag" source="log.srv.tag" defaultValue="JOKER|SPRINGBOOT_VUE|springboot-vue-back"/>
+    <springProperty scope="context" name="log.base" source="log.base" defaultValue="/home/joker/logs/"/>
+    <springProperty scope="context" name="log.file.name" source="log.file.name" defaultValue="springboot-vue-back"/>
+    　　　　　　　　　　
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date [%thread] [${log.srv.tag}] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="rootLoggerFileOut"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/${log.file.name}_root.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.file.name}_root.%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date [%thread] [${log.srv.tag}] %-5level %logger{80} -
+                %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="busiLoggerFileOut"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/${log.file.name}_busi.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.file.name}_busi.%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date [%thread] [${log.srv.tag}] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="druidLoggerFileOut"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/${log.file.name}_druid.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.file.name}_ibatis.%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date [%thread] [${log.srv.tag}] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="druid" level="DEBUG" additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="druidLoggerFileOut"/>
+    </logger>
+    <logger name="com.pracbiz.pbx.core" level="DEBUG"
+            additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="busiLoggerFileOut"/>
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rootLoggerFileOut"/>
+    </root>
+    <!--<springProfile name="unit">-->
+    <!--</springProfile>-->
+
+</configuration>
