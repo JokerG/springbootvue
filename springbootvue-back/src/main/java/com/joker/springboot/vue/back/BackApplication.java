@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -17,13 +18,15 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.joker.springboot.vue.back.filter.RewriteFilter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 @MapperScan(basePackages = "com.joker.springboot.vue.back.mapper")
 public class BackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
 	}
-
 	/**
 	 * json转换使用fastjson
 	 *
@@ -40,7 +43,11 @@ public class BackApplication {
 
 		// 3. 在converter中添加配置信息
 		fasHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
-		return new HttpMessageConverters((HttpMessageConverter<?>) fasHttpMessageConverter);
+		List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+		mediaTypeList.add(MediaType.APPLICATION_JSON_UTF8);
+		fasHttpMessageConverter.setSupportedMediaTypes(mediaTypeList);
+		HttpMessageConverter<?> converter = fasHttpMessageConverter;
+		return new HttpMessageConverters(converter);
 	}
 
 	@Bean

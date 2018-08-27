@@ -1,5 +1,6 @@
 package com.joker.springboot.vue.back.config;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -9,7 +10,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class GlobalCorsConfig {
 	@Bean
-	public CorsFilter corsFilter() {
+	public FilterRegistrationBean corsFilter() {
 		// 1.添加CORS配置信息
 		CorsConfiguration config = new CorsConfiguration();
 		// 放行哪些原始域
@@ -28,7 +29,10 @@ public class GlobalCorsConfig {
 		configSource.registerCorsConfiguration("/**", config);
 
 		// 3.返回新的CorsFilter.
-		return new CorsFilter(configSource);
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(configSource));
+		// 这个顺序很重要，为避免麻烦请设置在最前
+		bean.setOrder(0);
+		return bean;
 	}
 
 }

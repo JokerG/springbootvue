@@ -1,31 +1,31 @@
 package com.joker.springboot.vue.back.model;
 
 public class User {
-    private String loginId;
-    private String userName;
-    private String loginPwd;
+	private String username;
+	private String password;
+	private String role;
 
-    public String getLoginId() {
-        return loginId;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getLoginPwd() {
-        return loginPwd;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 }
